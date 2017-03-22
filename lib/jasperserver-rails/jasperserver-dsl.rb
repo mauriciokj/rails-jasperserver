@@ -46,10 +46,14 @@ module JasperserverRails
       f.close
     end
 
+    def get_data(&block)
+      generate_report(&block).body
+    end
+
     private
 
     def config
-      Rails.configuration.jasperserver[Rails.env.to_sym]
+      JasperserverRails.config.server
     end
 
     def login
