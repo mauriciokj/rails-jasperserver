@@ -3,40 +3,25 @@ require 'uri'
 require 'rest-client'
 module JasperserverRails
   class Jasperserver
-    class_eval do
-      [:report, :format, :params].each do |method|
-        define_method method do |arg|
-          arg = arg.collect { |key, value| [key, value] } if method == :params
-          instance_variable_set "@#{method}".to_sym, arg
-        end
-
-        define_method "get_#{method}" do
-          instance_variable_get "@#{method}".to_sym
-        end
-      end
-    end
+    attr_accessor :report, :format
 
     def initialize(&block)
       instance_eval(&block) if block_given?
       login
     end
 
+    def params=(value)
+      @params = value.collect { |key, value| [key, value] }
+    end
+
+    def params
+      URI.encode_www_form(@params)
+    end
+
     def generate_report(&block)
       instance_eval(&block) if block_given?
       login
-      # Run report
-      report_path = [
-        'rest_v2',
-        'reports',
-        "#{self.get_report}.#{self.get_format}?#{URI.encode_www_form(self.get_params)}"
-      ].join '/'
-      RestClient.get(
-        URI.join(
-          config[:url],
-          report_path
-        ).to_s,
-        { cookies: @cookie }
-      )
+      request_from_server
     end
 
     def run_report(filename, &block)
@@ -57,20 +42,34 @@ module JasperserverRails
     end
 
     def login
-      # login
-      unless @cookie
-        @cookie = RestClient.post(
-          [
-            config[:url],
-            'rest',
-            'login'
-          ].join('/').to_s,
-          {
-            j_username: config[:username],
-            j_password: config[:password]
-          }
-        ).cookies
-      end
+      @cookie ||= RestClient.post(login_url, login_params).cookies
+    end
+
+    def login_params
+      {
+        j_username: config[:username],
+        j_password: config[:password]
+      }
+    end
+
+    def login_path
+      ['rest', 'login'].join '/'
+    end
+
+    def login_url
+      URI.join(config[:url], login_path).to_s
+    end
+
+    def report_path
+      ['rest_v2', 'reports', "#{report}.#{format}?#{params}"].join '/'
+    end
+
+    def request_from_server
+      RestClient.get(report_url, { cookies: @cookie })
+    end
+
+    def report_url
+      URI.join(config[:url], report_path).to_s
     end
   end
 end
