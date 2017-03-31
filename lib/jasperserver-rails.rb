@@ -1,6 +1,7 @@
 require 'jasperserver-rails/engine'
 require 'jasperserver-rails/configuration'
-require 'jasperserver-rails/jasperserver-dsl'
+require 'jasperserver-rails/login'
+require 'jasperserver-rails/report'
 
 module JasperserverRails
   class << self
