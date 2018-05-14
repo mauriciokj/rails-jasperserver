@@ -3,12 +3,7 @@ require 'uri'
 require 'rest-client'
 
 module JasperserverRails
-  class Report
-    attr_accessor :report, :format
-
-    def initialize(options)
-      options.each { |key, value| self.send("#{key}=", value) }
-    end
+  class Report < Base
 
     def params=(value)
       @params = value.collect { |key, value| [key, value] }
@@ -31,14 +26,6 @@ module JasperserverRails
 
     private
 
-    def config
-      JasperserverRails.config.server
-    end
-
-    def cookie
-      @cookie ||= Login.new.cookies
-    end
-
     def generate
       request_from_server
     end
@@ -49,10 +36,6 @@ module JasperserverRails
 
     def request_from_server
       RestClient.get(url, { cookies: cookie })
-    end
-
-    def url
-      URI.join(config[:url], path).to_s
     end
   end
 end
