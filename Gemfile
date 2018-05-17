@@ -12,6 +12,7 @@ gemspec
 gem 'jquery-rails'
 
 group :development, :test do
+  gem 'byebug'
   gem 'thin'
 end
 

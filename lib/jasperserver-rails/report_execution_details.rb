@@ -13,7 +13,7 @@ module JasperserverRails
       begin
         RestClient.get(url, { cookies: cookie, accept: :json })
       rescue RestClient::ExceptionWithResponse => e
-        p e.response
+        e.response
       end
     end
 
