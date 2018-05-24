@@ -50,5 +50,9 @@ module JasperserverRails
       @request_params.merge!(auth_params)
       @request_params.merge(params)
     end
+
+    def url
+      URI.join(config[:endpoint], path).to_s
+    end
   end
 end
