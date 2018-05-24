@@ -2,6 +2,10 @@ module JasperserverRails
   class Configuration
     attr_accessor :servers, :config_file
 
+    def cookie
+      @@cookie ||= Login.new.cookies
+    end
+
     def server
       servers[Rails.env.to_sym]
     end

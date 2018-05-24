@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bundler', '>= 1.8.4'
+gem 'rails', '3.2.22.5'
 
 # Declare your gem's dependencies in jasperserver-rails.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -10,9 +11,8 @@ gemspec
 # jquery-rails is used by the dummy application
 gem 'jquery-rails'
 
-gem 'protected_attributes'
-
 group :development, :test do
+  gem 'byebug'
   gem 'thin'
 end
 
