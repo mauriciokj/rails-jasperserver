@@ -2,7 +2,7 @@ require 'fileutils'
 require 'uri'
 require 'rest-client'
 module JasperserverRails
-  class Jasperserver
+  class Dsl
     attr_accessor :report, :format
 
     def initialize(&block)

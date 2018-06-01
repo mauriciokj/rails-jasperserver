@@ -6,6 +6,10 @@ module JasperserverRails
       @@cookie ||= Login.new.cookies
     end
 
+    def logout
+      @@cookie = nil
+    end
+
     def server
       servers[Rails.env.to_sym]
     end

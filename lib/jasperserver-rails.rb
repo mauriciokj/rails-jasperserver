@@ -7,6 +7,7 @@ require 'jasperserver-rails/report_execution'
 require 'jasperserver-rails/report_execution_details'
 require 'jasperserver-rails/report_execution_output'
 require 'jasperserver-rails/report_preview'
+require 'jasperserver-rails/dsl'
 
 module JasperserverRails
   class << self

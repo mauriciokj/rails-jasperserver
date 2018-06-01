@@ -2,6 +2,8 @@ module JasperserverRails
   class Base
     attr_accessor :report, :format
 
+    rescue_from RestClient::Unauthorized, with: :logout
+
     def initialize(options)
       options.each { |key, value| self.send("#{key}=", value) }
     end
@@ -18,6 +20,11 @@ module JasperserverRails
 
     def cookie
       @cookie ||= JasperserverRails.config.cookie
+    end
+
+    def logout
+      @cookie = nil
+      JasperserverRails.config.logout
     end
 
     def url
