@@ -1,5 +1,6 @@
 require 'jasperserver-rails/engine'
 require 'jasperserver-rails/configuration'
+require 'jasperserver-rails/unauthorized'
 require 'jasperserver-rails/base'
 require 'jasperserver-rails/login'
 require 'jasperserver-rails/report'

@@ -4,7 +4,7 @@ module JasperserverRails
 
     attr_accessor :report, :format
 
-    rescue_from RestClient::Unauthorized, with: :logout
+    rescue_from RestClient::Unauthorized, with: :logout_with_expection
 
     def initialize(options)
       options.each { |key, value| self.send("#{key}=", value) }
@@ -27,6 +27,11 @@ module JasperserverRails
     def logout
       @cookie = nil
       JasperserverRails.config.logout
+    end
+
+    def logout_with_expection
+      logout
+      raise Unauthorized
     end
 
     def url
