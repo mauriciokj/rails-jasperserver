@@ -1,5 +1,7 @@
 module JasperserverRails
   class Base
+    include ActiveSupport::Rescuable
+
     attr_accessor :report, :format
 
     rescue_from RestClient::Unauthorized, with: :logout
