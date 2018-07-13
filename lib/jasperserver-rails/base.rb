@@ -2,12 +2,20 @@ module JasperserverRails
   class Base
     include ActiveSupport::Rescuable
 
-    attr_accessor :report, :format
+    attr_accessor :report, :format, :login
 
     rescue_from RestClient::Unauthorized, with: :logout_with_expection
 
     def initialize(options)
       options.each { |key, value| self.send("#{key}=", value) }
+    end
+
+    def cookies
+      login.cookies
+    end
+
+    def login
+      @login ||= Login.new
     end
 
     protected
@@ -20,13 +28,8 @@ module JasperserverRails
       @config ||= JasperserverRails.config.server
     end
 
-    def cookie
-      @cookie ||= JasperserverRails.config.cookie
-    end
-
     def logout
-      @cookie = nil
-      JasperserverRails.config.logout
+      self.login = nil
     end
 
     def logout_with_expection

@@ -11,7 +11,7 @@ module JasperserverRails
 
     def details
       begin
-        RestClient.get(url, { cookies: cookie, accept: :json })
+        RestClient.get(url, { cookies: cookies, accept: :json })
       rescue RestClient::ExceptionWithResponse => e
         e.response
       end

@@ -3,11 +3,11 @@ module JasperserverRails
     attr_accessor :servers, :config_file
 
     def cookie
-      @@cookie ||= Login.new.cookies
+      @cookie ||= Login.new.cookies
     end
 
     def logout
-      @@cookie = nil
+      @cookie = nil
     end
 
     def server

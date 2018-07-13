@@ -35,7 +35,7 @@ module JasperserverRails
     end
 
     def request_from_server
-      RestClient.get(url, { cookies: cookie })
+      RestClient.get(url, { cookies: cookies })
     end
   end
 end

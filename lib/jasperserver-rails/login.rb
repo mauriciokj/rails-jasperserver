@@ -3,8 +3,12 @@ require 'uri'
 require 'rest-client'
 module JasperserverRails
   class Login
+    def initialize(cookies = nil)
+      @cookies = cookies
+    end
+
     def cookies
-      RestClient.post(url, params).cookies
+      @cookies ||= RestClient.post(url, params).cookies
     end
 
     private

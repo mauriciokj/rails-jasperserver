@@ -16,7 +16,7 @@ module JasperserverRails
     end
 
     def schedule
-      RestClient.post(url, request_params.to_json, { cookies: cookie, content_type: :json, accept: :json })
+      RestClient.post(url, request_params.to_json, { cookies: cookies, content_type: :json, accept: :json })
     end
 
     def params
