@@ -1,3 +1,4 @@
+require 'rest-client'
 require 'jasperserver-rails/engine'
 require 'jasperserver-rails/configuration'
 require 'jasperserver-rails/unauthorized'
