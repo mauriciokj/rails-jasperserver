@@ -59,18 +59,39 @@ module JasperserverRails
     def login
       # login
       unless @cookie
-        @cookie = RestClient.post(
-          [
-            config[:url],
-            'rest',
-            'login'
-          ].join('/').to_s,
-          {
-            j_username: config[:username],
-            j_password: config[:password]
-          }
-        ).cookies
+        if method == "post"
+          @cookie = RestClient.post(url_post, params).cookies
+        else
+          @cookie = RestClient.get(url_get).cookies
+        end
       end
+    end
+
+    def teste
+      {
+        j_username: config[:username],
+        j_password: config[:password]
+      }
+    end
+
+    def path_get
+      config[:url_login] + '?' + teste.to_query
+    end
+
+    def path_post
+      config[:url_login]
+    end
+
+    def method
+      config[:method]
+    end
+
+    def url_get
+      URI.join(config[:url], path_get).to_s
+    end
+
+    def url_post
+      URI.join(config[:url], path_post).to_s
     end
   end
 end
