@@ -25,7 +25,7 @@ module JasperserverRails
     end
 
     def path
-      ['rest', 'login'].join '/'
+      config[:url_login]
     end
 
     def url
