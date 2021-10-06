@@ -19,7 +19,7 @@ module JasperserverRails
     end
 
     def read_config_file
-      YAML.load(File.read(Rails.root.join('config', 'jasperserver.yml'))).deep_symbolize_keys
+      YAML.safe_load(ERB.new(File.read( Rails.root.join(Rails.root, 'config', 'jasperserver.yml') )).result).deep_symbolize_keys
     end
   end
 end
